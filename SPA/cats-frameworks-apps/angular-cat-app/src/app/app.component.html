@@ -1,0 +1,29 @@
+<hr>
+<div>
+  <button mat-flat-button color="primary">Test Primary</button>
+  <button mat-flat-button color="error">Test Accent</button>
+  <button mat-flat-button color="warn">Test Warn</button>
+  <button mat-flat-button>Test Bez Koloru</button>
+</div>
+<div style="padding: 16px">
+  <button mat-mdc-unelevated-button color="primary">Primary</button>
+  <button mat-mdc-raised-button color="accent">Accent</button>
+  <button mat-mdc-outlined-button color="warn">Warn</button>
+</div>
+<hr>
+
+<app-navbar
+  [title]="appTitle"
+  (modeChange)="handleModeChange($event)">
+</app-navbar>
+
+<main class="content-container">
+  <app-random-feed *ngIf="!currentModeIsFavourites"></app-random-feed>
+
+  <app-favourites-feed *ngIf="currentModeIsFavourites"></app-favourites-feed>
+
+
+  <p style="text-align: center; margin-top: 20px; font-style: italic;">
+    Tryb: {{ currentModeIsFavourites ? 'Ulubione' : 'Losowe' }}
+  </p>
+</main>

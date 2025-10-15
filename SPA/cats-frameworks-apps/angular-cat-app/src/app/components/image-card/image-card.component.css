@@ -1,0 +1,72 @@
+.image-card {
+    width: 345px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    position: relative; /* Potrzebne do pozycjonowania absolutnego spinnera */
+  }
+  
+  .image-container {
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    position: relative; /* Potrzebne dla spinnera wewnątrz */
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .feed-container {
+  position: relative; /* Dla pozycjonowania spinnera */
+  min-height: 200px; /* Aby spinner był widoczny na początku */
+  padding-top: 20px;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Odstęp między kartami */
+  justify-content: center; /* Wyśrodkowanie kart w kontenerze */
+}
+
+.loading-indicator, .no-images, .error-message {
+  display: flex;
+  flex-direction: column; /* Spinner nad tekstem */
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  font-size: 1.2em;
+  color: #666;
+}
+
+.loading-indicator p {
+    margin-top: 15px;
+}
+
+.error-message {
+  color: red;
+}
+
+/* Styl dla spinnera w rogu obrazka */
+.favourite-spinner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  /* Można dodać tło dla lepszej widoczności */
+  /* background-color: rgba(255, 255, 255, 0.7); */
+  /* border-radius: 50%; */
+}
+
+
+/* Upewnijmy się, że akcje są na dole i przycisk jest po lewej */
+.card-actions-container {
+  display: flex;
+  justify-content: flex-start; /* Przycisk na lewo */
+  padding: 8px 16px !important; /* Dopasowanie paddingu, !important może być potrzebne */
+  min-height: 52px; /* Zapewnia stałą wysokość sekcji akcji */
+}
