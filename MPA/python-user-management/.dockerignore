@@ -1,0 +1,23 @@
+# Plik: python-app/.dockerignore
+
+# Wirtualne środowisko
+.venv/
+venv/
+
+# Pliki cache Pythona
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pliki IDE
+.idea/
+.vscode/
+
+# Pliki Gita
+.git
+.gitignore
+
+# Pliki bazy danych SQLite (jeśli używasz do testów)
+*.db
+*.sqlite3

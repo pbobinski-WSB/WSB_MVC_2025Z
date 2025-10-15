@@ -1,0 +1,14 @@
+# Plik: java-app/.dockerignore
+
+# Katalog z wynikami builda
+target/
+build/
+
+# Pliki logów
+*.log
+
+# Pliki systemowe i IDE
+.git
+.idea/
+*.iml
+.vscode/

@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  flask_app:
+    build: . # Lub image: twoj-obraz-flask:tag
+    container_name: my_flask_app_local
+    ports:
+      - "5000:5000" # Mapuj port aplikacji Flask
+    environment:
+      FLASK_ENV: development
+      FLASK_APP: app.py # Zmień na nazwę pliku startowego
+      SECRET_KEY: 'sekretny-klucz-tylko-dla-lokalnego-developmentu-zmien-mnie!'
+      # MONGODB_URI: 'mongodb+srv://pbouser:1q2w3e4r@pbocluster0.ukvof.mongodb.net/userdb?retryWrites=true&w=majority'
+      MONGODB_URI: 'mongodb://host.docker.internal:27017/usersdb'
+    volumes:
+      - ./:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+

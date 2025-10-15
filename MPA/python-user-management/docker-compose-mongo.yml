@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  flask_app:
+    build: .
+    container_name: my_flask_app_compose # Można zmienić nazwę kontenera
+    ports:
+      - "5000:5000" # Mapuje port 5000 hosta na port 5000 kontenera Flask
+    environment:
+      FLASK_ENV: development
+      FLASK_APP: app.py # Upewnij się, że to poprawna nazwa pliku startowego
+      SECRET_KEY: 'sekretny-klucz-tylko-dla-lokalnego-developmentu-zmien-mnie!' # Warto ustawić przez zmienną środowiskową hosta
+      MONGODB_URI: 'mongodb://mongo:27017/usersdb'
+    volumes:
+      - ./:/app
+    networks:
+      - app-network
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest # Użyj oficjalnego obrazu MongoDB (można przypiąć wersję, np. mongo:5.0)
+    container_name: my_mongo_db_compose # Można zmienić nazwę kontenera
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge # Standardowa sieć mostkowa dla docker-compose
+
+volumes:
+  mongo-data:
