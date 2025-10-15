@@ -12,7 +12,8 @@ import { FavoriteBorder } from '@mui/icons-material';
 
 export default function Image({data, onUnFavourite}) {
     
-    const breed = data.breeds[0] || {}
+    // const breed = data.breeds[0] || {}
+    const breed = data.breeds?.[0] ?? {};
     const [favourite, setFavourite] = React.useState(data.favourite)
 
     async function handleFavouriteToggle  ()
