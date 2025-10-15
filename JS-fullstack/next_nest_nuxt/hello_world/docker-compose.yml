@@ -1,0 +1,32 @@
+# Plik: docker-compose.yml
+
+services:
+  # --- Usługa dla aplikacji Next.js ---
+  next-app:
+    build:
+      context: ./next-hello-world
+    container_name: nextjs_app
+    ports:
+      # Mapujemy port 3000 na Twoim komputerze na port 3000 w kontenerze
+      - "3000:3000"
+    restart: unless-stopped
+
+  # --- Usługa dla aplikacji Nest.js ---
+  nest-app:
+    build:
+      context: ./nest-hello-world
+    container_name: nestjs_app
+    ports:
+      # Mapujemy port 3001 na Twoim komputerze na port 3000 w kontenerze
+      - "3001:3000"
+    restart: unless-stopped
+
+  # --- Usługa dla aplikacji Nuxt.js ---
+  nuxt-app:
+    build:
+      context: ./nuxt-hello-world
+    container_name: nuxtjs_app
+    ports:
+      # Mapujemy port 3002 na Twoim komputerze na port 3000 w kontenerze
+      - "3002:3000"
+    restart: unless-stopped
