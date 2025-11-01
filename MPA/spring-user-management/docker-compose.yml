@@ -1,0 +1,59 @@
+# Używamy najnowszej wersji składni Docker Compose
+version: '3.8'
+
+# Definiujemy wszystkie nasze serwisy (kontenery)
+services:
+
+  # 1. Serwis Bazy Danych (PostgreSQL)
+  db:
+    image: postgres:14-alpine
+    container_name: postgres_db
+    # Zmienne środowiskowe do konfiguracji bazy danych
+    # Muszą być takie same jak te, których oczekuje backend
+    environment:
+      POSTGRES_DB: user_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    # Wolumen do przechowywania danych bazy, aby nie zniknęły po restarcie kontenera
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Porty - odkomentuj, jeśli chcesz łączyć się z bazą z zewnątrz (np. z DBeaver)
+    ports:
+      - "5432:5432"
+
+  # 2. Serwis Backendu (Spring Boot)
+  backend:
+    container_name: spring_backend
+    # Mówimy Dockerowi, aby zbudował obraz na podstawie Dockerfile
+    # znajdującego się w folderze ./user-management
+    build:
+      context: .
+    # Uruchom ten serwis dopiero, gdy serwis 'db' będzie gotowy
+    depends_on:
+      - db
+    # Mapujemy port 8080 z kontenera na port 8080 na Twoim komputerze
+    ports:
+      - "8080:8080"
+    # Zmienne środowiskowe dla aplikacji Springa
+    # Nadpisują one application.properties i są kluczowe dla komunikacji między kontenerami
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/user_db  # 'db' to nazwa serwisu bazy danych
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+
+  # 3. Serwis Frontendu (Vue.js serwowany przez Nginx)
+  frontend:
+    container_name: vue_frontend
+    # Budujemy obraz na podstawie Dockerfile w folderze ./frontend-vue/user-client
+    build:
+      context: ..\..\SPA\spring-vue-front\
+    # Mapujemy port 80 z kontenera na port 80 na Twoim komputerze (standardowy port HTTP)
+    ports:
+      - "80:80"
+    # Frontend musi komunikować się z backendem, więc zależy od niego
+    depends_on:
+      - backend
+
+# Definiujemy nazwany wolumen, który będzie zarządzał danymi bazy
+volumes:
+  postgres_data:

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::content})}">
+
+<body>
+<div th:fragment="content">
+    <h2 class="mb-4" th:text="${user.id == null} ? 'Add New User' : 'Edit User'">Form</h2>
+
+    <form action="#" th:action="@{/users/save}" th:object="${user}" method="post">
+        <!-- Ukryte pole ID jest potrzebne do edycji -->
+        <input type="hidden" th:field="*{id}" />
+
+        <!-- Każde pole opakowujemy w div dla odpowiednich odstępów -->
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="e.g. jkowalski">
+        </div>
+
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="e.g. Jan">
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="e.g. Kowalski">
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="e.g. jan.kowalski@example.com">
+        </div>
+
+        <!-- Linia oddzielająca i przyciski -->
+        <hr class="my-4">
+
+        <div class="d-flex justify-content-end">
+            <a th:href="@{/users}" class="btn btn-secondary me-2">Cancel</a>
+            <button type="submit" class="btn btn-success">Save User</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
