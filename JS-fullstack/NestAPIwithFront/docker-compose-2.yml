@@ -1,0 +1,14 @@
+# Plik: docker-compose.yml
+
+services:
+
+  nest-app:
+    build:
+      context: ./nest-hello-world
+    container_name: nestjs_app
+    ports:
+      # Mapujemy port 3001 na Twoim komputerze na port 3000 w kontenerze
+      - "3000:3000"
+    restart: unless-stopped
+
+  

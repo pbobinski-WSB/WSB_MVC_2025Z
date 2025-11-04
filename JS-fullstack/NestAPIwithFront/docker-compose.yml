@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+  frontend:
+    build: ./ClientTODO-JS
+    ports:
+      - "8080:80"
+    depends_on:
+      - nest-app
+
+  nest-app:
+    build:
+      context: ./nest-todo-api
+    container_name: nestjs_app
+    ports:
+      # Mapujemy port 3001 na Twoim komputerze na port 3000 w kontenerze
+      - "3000:3000"
+    restart: unless-stopped
